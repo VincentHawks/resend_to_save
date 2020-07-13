@@ -11,6 +11,10 @@ public class ResendController {
 
     private MessageSender sender;
 
+    public ResendController(MessageSender sender) {
+        this.sender = sender;
+    }
+
     @PostMapping("/")
     public ResponseEntity<String> respond(@RequestBody RequestModel request) {
 
