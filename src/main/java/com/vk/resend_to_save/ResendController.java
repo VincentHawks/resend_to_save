@@ -9,13 +9,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ResendController {
 
-    @PostMapping("/")
-    public ResponseEntity<String> respond(@RequestBody String request) {
+    private MessageSender sender;
 
-        //if(request.getType().equals("confirmation")) return new ResponseEntity<>("cfbbe0b5", HttpStatus.OK);
+    @PostMapping("/")
+    public ResponseEntity<String> respond(@RequestBody RequestModel request) {
+
+        if(request.getType().equals("confirmation")) return new ResponseEntity<>("cfbbe0b5", HttpStatus.OK);
 
         // Else extract the attachment and send back the copy;
-        System.out.println(request/*.getMessage().getAttachments().get(0).getImage()*/);
+        for(Attachment a : request.getMessage().getAttachments()) {
+            if(a.getType().equals("photo")) {
+                sender.send(a.getImage());
+            }
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
