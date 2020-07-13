@@ -18,14 +18,17 @@ public class ResendController {
     @PostMapping("/")
     public ResponseEntity<String> respond(@RequestBody RequestModel request) {
 
-        if(request.getType().equals("confirmation")) return new ResponseEntity<>("cfbbe0b5", HttpStatus.OK);
+        if (request.getType().equals("confirmation")) return new ResponseEntity<>("cfbbe0b5", HttpStatus.OK);
 
         // Else extract the attachment and send back the copy;
-        for(Attachment a : request.getMessage().getAttachments()) {
-            if(a.getType().equals("photo")) {
-                sender.send(a.getImage());
+        if(request.getMessage().getUser_id() != -197092083) { // To protect from possible loop-sending
+            for (Attachment a : request.getMessage().getAttachments()) { // Resend every attached image separately
+                if (a.getType().equals("photo")) {
+                    sender.send(a.getImage());
+                }
             }
         }
+        sender.setMessagesRead(request.getMessage().getUser_id());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

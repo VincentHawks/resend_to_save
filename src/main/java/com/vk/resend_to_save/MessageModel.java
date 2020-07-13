@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MessageModel {
 
+    private long user_id;
     private List<Attachment> attachments;
 
 }
