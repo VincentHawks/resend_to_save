@@ -2,6 +2,7 @@ package com.vk.resend_to_save;
 
 import lombok.NonNull;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,7 +24,8 @@ public class MessageSender {
                 .append("&random_id=").append(random.nextLong())
                 .append("&peer_id=").append(image.getOwner_id())
                 .append("&attachment=").append(image.getIdentifier());
-        this.restTemplate.getForObject(url.toString(), String.class);
+        String response = this.restTemplate.getForObject(url.toString(), String.class);
+        System.out.println(response);
     }
 
 }
