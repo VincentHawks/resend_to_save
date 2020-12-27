@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class RequestModel {
 
     @JsonProperty("type") private String type;
-    @Nullable
     @JsonProperty("object.message") private MessageModel message;
 
     // We aren't concerned about anything else
