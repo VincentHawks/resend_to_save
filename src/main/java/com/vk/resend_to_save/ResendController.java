@@ -18,7 +18,7 @@ public class ResendController {
     @PostMapping("/")
     public ResponseEntity<String> respond(@RequestBody RequestModel request) {
 
-        if (request.getType().equals("confirmation")) return new ResponseEntity<>("cfbbe0b5", HttpStatus.OK);
+        if (request.getType().equals("confirmation")) return new ResponseEntity<>("e66e4554", HttpStatus.OK);
 
         // Else extract the attachment and send back the copy;
         if(request.getMessage().getUser_id() != -197092083) { // To protect from possible loop-sending
