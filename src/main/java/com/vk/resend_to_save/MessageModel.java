@@ -1,5 +1,7 @@
 package com.vk.resend_to_save;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MessageModel {
 
-    private long user_id;
-    private List<Attachment> attachments;
+    @JsonProperty("from_id") private long user_id;
+    @JsonProperty("attachments") private List<Attachment> attachments;
 
 }

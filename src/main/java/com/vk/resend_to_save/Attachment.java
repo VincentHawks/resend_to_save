@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Attachment {
 
-    private String type; // must be "photo"
-
-    @JsonProperty("photo")
-    private Image image;
+    @JsonProperty("type") private String type; // must be "photo"
+    @JsonProperty("photo") private Image image;
 
 }

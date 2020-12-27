@@ -27,20 +27,22 @@ public class ResendController {
         if (requestPOJO.getType().equals("confirmation")) return new ResponseEntity<>("e66e4554", HttpStatus.OK);
 
         // Else extract the attachment and send back the copy;
-        if (requestPOJO.getMessage().getUser_id() != -197092083) { // To prevent possible loop-sending
-            if (requestPOJO.getMessage().getAttachments() != null) {
-                for (Attachment a : requestPOJO.getMessage().getAttachments()) { // Resend every attached image separately
-                    if (a.getType().equals("photo")) {
-                        sender.send(a.getImage());
+        if (requestPOJO.getType().equals("message_new")) {
+            if (requestPOJO.getMessage().getUser_id() != -197092083) { // To prevent possible loop-sending
+                if (requestPOJO.getMessage().getAttachments() != null) {
+                    for (Attachment a : requestPOJO.getMessage().getAttachments()) { // Resend every attached image separately
+                        if (a.getType().equals("photo")) {
+                            sender.send(a.getImage());
+                        }
                     }
+                } else {
+                    System.out.println(requestString);
+                    return new ResponseEntity<>(HttpStatus.OK);
                 }
             }
-            else {
-                System.out.println(requestString);
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
+            sender.setMessagesRead(requestPOJO.getMessage().getUser_id());
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        sender.setMessagesRead(requestPOJO.getMessage().getUser_id());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
